@@ -81,6 +81,7 @@
     self.captionTextColor = [UIColor blackColor];
     self.captionFont = [UIFont fontWithName:@"Helvetica-Light" size:12.0f];
     self.hidePageControlForSinglePages = YES;
+    self.activityStyle = UIActivityIndicatorViewStyleGray;
 
     [self initializeScrollView];
     [self initializePageControl];
@@ -211,7 +212,7 @@
                 // Instantiate and show Actvity Indicator
                 UIActivityIndicatorView *activityIndicator = [UIActivityIndicatorView new];
                 activityIndicator.center = (CGPoint){_scrollView.frame.size.width/2, _scrollView.frame.size.height/2};
-                activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+                activityIndicator.activityIndicatorViewStyle = _activityStyle;
                 [imageView addSubview:activityIndicator];
                 [activityIndicator startAnimating];
                 [_activityIndicators setObject:activityIndicator forKey:[NSString stringWithFormat:@"%d", i]];
@@ -248,6 +249,8 @@
 
         [_countLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)[[_dataSource arrayWithImages:self] count]]];
         _pageControl.numberOfPages = [(NSArray *)[_dataSource arrayWithImages:self] count];
+        _pageControl.currentPageIndicatorTintColor = [UIColor darkGrayColor];
+        _pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
     } else {
         UIImageView *blankImage = [[UIImageView alloc] initWithFrame:_scrollView.frame];
         if ([_dataSource respondsToSelector:@selector(placeHolderImageForImagePager:)]) {
